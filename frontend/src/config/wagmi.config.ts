@@ -1,25 +1,20 @@
 import { getDefaultConfig } from "connectkit";
 import { createConfig, http } from "wagmi";
-import { mainnet } from "wagmi/chains";
 
 export const xsollaZkChain = {
-  id: 555272,
+  id: 555776,
   name: "Xsolla ZK Sepolia",
   nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
   rpcUrls: {
-    default: { http: ["https://zkrpc.xsollazk.com"] },
+    default: { http: ["https://zkrpc-sepolia.xsollazk.com"] },
   },
 } as const;
 
 export const wagmiConfig = createConfig(
   getDefaultConfig({
-    chains: [mainnet],
+    chains: [xsollaZkChain],
     transports: {
-      [mainnet.id]: http(
-        `https://eth-mainnet.g.alchemy.com/v2/${
-          process.env.NEXT_PUBLIC_ALCHEMY_ID || ""
-        }`
-      ),
+      [xsollaZkChain.id]: http("https://zkrpc-sepolia.xsollazk.com"),
     },
 
     walletConnectProjectId:
@@ -30,5 +25,5 @@ export const wagmiConfig = createConfig(
     appDescription: "Simple wallet connection demo",
     appUrl: "https://xsolla.com",
     appIcon: "https://xsolla.com/favicon.ico",
-  })
+  }),
 );
