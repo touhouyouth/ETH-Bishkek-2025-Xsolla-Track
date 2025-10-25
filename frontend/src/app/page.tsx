@@ -1,14 +1,15 @@
 "use client";
 
-import { Button, Text, Stack } from "@xsolla-zk/react";
+import NftList from "@/components/NftList";
+import { useApp } from "@/contexts/AppContext";
+import ConnectWallet from "@/components/ConnectWallet";
 
 export default function Home() {
-  return (
-    <Stack padding={4} gap={4} maxWidth={400}>
-      <Text fontSize="$8">M3N747</Text>
-      <Button onPress={() => alert("M3N747")} size="$500">
-        <Button.Text>M3N747</Button.Text>
-      </Button>
-    </Stack>
-  );
+  const { address } = useApp();
+
+  if (!address) {
+    return <ConnectWallet />;
+  }
+
+  return <NftList />;
 }

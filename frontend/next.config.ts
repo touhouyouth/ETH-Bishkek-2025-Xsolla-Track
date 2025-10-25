@@ -23,6 +23,24 @@ export default () => {
       "@xsolla-zk/config",
       "@xsolla-zk/icons",
     ],
+    webpack: (config, { isServer }) => {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        "pino-pretty": false,
+        "@react-native-async-storage/async-storage": false,
+      };
+
+      config.externals = config.externals || [];
+      if (!isServer) {
+        config.externals.push({
+          "pino-pretty": "pino-pretty",
+          "@react-native-async-storage/async-storage":
+            "@react-native-async-storage/async-storage",
+        });
+      }
+
+      return config;
+    },
   };
 
   for (const plugin of plugins) {
