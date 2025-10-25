@@ -12,8 +12,36 @@ const plugins = [
   }),
 ];
 
-export default () => {
+const nextConfig = (): NextConfig => {
   let config: NextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "steamcommunity-a.akamaihd.net",
+          port: "",
+          pathname: "/economy/image/**",
+        },
+        {
+          protocol: "https",
+          hostname: "ipfs.io",
+          port: "",
+          pathname: "/ipfs/**",
+        },
+        {
+          protocol: "https",
+          hostname: "gateway.pinata.cloud",
+          port: "",
+          pathname: "/ipfs/**",
+        },
+        {
+          protocol: "https",
+          hostname: "cloudflare-ipfs.com",
+          port: "",
+          pathname: "/ipfs/**",
+        },
+      ],
+    },
     transpilePackages: [
       "react-native",
       "react-native-web",
@@ -52,3 +80,5 @@ export default () => {
 
   return config;
 };
+
+export default nextConfig;
