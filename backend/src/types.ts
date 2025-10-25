@@ -1,5 +1,4 @@
 export type User = {
-  id: number;
   name: string;
   steamId: string;
   walletAddress: string;
@@ -10,7 +9,7 @@ export type Item = {
   classId: string;
   ownerSteamId: string;
   oldOwnerSteamId: string | null;
-  isTransferred: boolean;
+  signatureGenerated: boolean;
   isClaimed: boolean;
 };
 

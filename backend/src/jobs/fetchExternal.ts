@@ -108,20 +108,13 @@ export async function fetchExternalJob() {
 
         storage.updateItem(item.classId, {
           ownerSteamId: newOwner.steamId,
-          isTransferred: true,
+          signatureGenerated: false,
           isClaimed: false,
         });
       } else {
         log.warn(
           `Item ${item.classId} not found in any tracked inventory. May have been traded externally.`
         );
-
-        if (!item.isTransferred) {
-          storage.updateItem(item.classId, {
-            isTransferred: true,
-            isClaimed: false,
-          });
-        }
       }
     }
 

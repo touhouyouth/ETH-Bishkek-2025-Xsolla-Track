@@ -1,20 +1,9 @@
 import type { Item } from "../types.js";
-import { defineChain, http, createWalletClient } from "viem";
+import { http, createWalletClient } from "viem";
 import type { TypedDataDomain } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { storage } from "./storage.js";
-
-const xsollaZKSync = defineChain({
-  id: 555776,
-  name: "Xsolla ZK Sepolia Testnet",
-  nativeCurrency: { decimals: 18, name: "Ether", symbol: "ETH" },
-  rpcUrls: {
-    default: { http: ["https://zkrpc-sepolia.xsollazk.com"] },
-    public: { http: ["https://zkrpc-sepolia.xsollazk.com"] },
-  },
-});
-
-const contractAddress = "0x2117502fb0171de18DD27dC0bD331cf2C39F9F1C";
+import { config, xsollaZKSync } from "../config.js";
 
 const SIGNER_PRIVATE_KEY = process.env.SIGNER_PRIVATE_KEY ?? "";
 
@@ -49,7 +38,7 @@ export async function generateClaimSignature(item: Item) {
     name: "Lore Game Assets",
     version: "1.0",
     chainId: xsollaZKSync.id,
-    verifyingContract: contractAddress as `0x${string}`,
+    verifyingContract: config.contractAddress as `0x${string}`,
   };
 
   const types = {
@@ -81,7 +70,7 @@ export async function generateClaimSignature(item: Item) {
   });
 
   const response = {
-    contractAddress,
+    contractAddress: config.contractAddress,
     transferData: {
       ...transferData,
       nonce: transferData.nonce.toString(),
