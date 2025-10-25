@@ -229,6 +229,16 @@ Token URI format: `ipfs://<CID_epoch>/<tokenId>.json`
 - LoreEpochRegistry: `0xAd6421d11F0E3f01E6841F26b9398FE794d0d3F6`
 - Explorer: https://sepolia.explorer.zksync.io/
 
+## Contract ABIs
+
+ABI файлы контрактов находятся в директории `abis/`:
+
+- **abis/LoreNFT.json** - ABI контракта LoreNFT (ERC721Enumerable)
+- **abis/LoreEpochRegistry.json** - ABI контракта LoreEpochRegistry
+- **abis/addresses.json** - Адреса развернутых контрактов
+
+Используйте эти ABI для интеграции с контрактами через web3.js, ethers.js или другие библиотеки.
+
 ## Security Considerations
 
 1. **Private Keys**: Never commit private keys to version control

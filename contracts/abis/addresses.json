@@ -1,0 +1,12 @@
+{
+  "zkSyncSepolia": {
+    "chainId": 300,
+    "rpcUrl": "https://sepolia.era.zksync.dev",
+    "explorer": "https://sepolia.explorer.zksync.io",
+    "contracts": {
+      "LoreNFT": "0xa0c7D5611EfA882204b8B6A92F369AFA949A65a0",
+      "LoreEpochRegistry": "0xAd6421d11F0E3f01E6841F26b9398FE794d0d3F6"
+    }
+  }
+}
+
