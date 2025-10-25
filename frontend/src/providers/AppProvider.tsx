@@ -8,6 +8,7 @@ import { wagmiConfig } from "@/config/wagmi.config";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
 import { ConnectKitProvider } from "connectkit";
+import Header from "../components/Header";
 
 const queryClient = new QueryClient();
 
@@ -23,10 +24,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
                 flex={1}
                 height="100vh"
                 width="100vw"
-                alignItems="center"
-                justifyContent="center"
               >
-                {children}
+                <Header />
+                <Stack flex={1} padding={20} className="overflow-x-hidden">
+                  {children}
+                </Stack>
               </Stack>
             </AppContextProvider>
           </ConnectKitProvider>
