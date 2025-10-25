@@ -13,6 +13,7 @@ import type { UserState } from "@/types/app";
 import type { AppContextType } from "@/types/app";
 
 const initialState: UserState = {
+  isLoading: true,
   address: null,
 };
 
@@ -20,15 +21,17 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<UserState>(initialState);
-  const { address } = useAccount();
+  const { address, isConnecting, isReconnecting } = useAccount();
 
   useEffect(() => {
-    if (address) {
-      setState((prev) => ({ ...prev, address }));
-    } else {
-      setState(initialState);
-    }
-  }, [address]);
+    const isLoading = isConnecting || isReconnecting;
+
+    setState((prev) => ({
+      ...prev,
+      address: address ?? null,
+      isLoading,
+    }));
+  }, [address, isConnecting, isReconnecting]);
 
   const reset = useCallback((): void => {
     setState(initialState);

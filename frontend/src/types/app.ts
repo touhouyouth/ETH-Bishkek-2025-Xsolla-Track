@@ -1,4 +1,5 @@
 export interface UserState {
+  isLoading: boolean;
   address: string | null;
 }
 

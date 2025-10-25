@@ -1,7 +1,6 @@
 "use client";
 
-import { RichIcon, Stack, Text } from "@xsolla-zk/react";
-import { Face } from "@xsolla-zk/icons";
+import { Stack, Text } from "@xsolla-zk/react";
 import { useApp } from "@/contexts/AppContext";
 
 export default function NftList() {
