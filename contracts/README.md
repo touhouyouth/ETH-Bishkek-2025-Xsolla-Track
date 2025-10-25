@@ -4,12 +4,13 @@ Smart contracts for game asset NFTs with epoch-based metadata snapshots on IPFS 
 
 ## Contracts Overview
 
-- **LoreNFT**: ERC721 NFT contract with:
+- **LoreNFT**: ERC721Enumerable NFT contract with:
   - Epoch-based metadata system (all attributes stored in IPFS JSON)
   - Transfer restrictions (signature-based or admin-controlled)
   - EIP-712 for typed signature verification
   - EIP-4906 for metadata update events
   - Role-based access control (MINTER_ROLE, REGISTRY_ROLE)
+  - Token enumeration (get all token IDs by user address)
 
 - **LoreEpochRegistry**: Registry for managing metadata epochs:
   - Stores epoch roots and IPFS CIDs
@@ -116,6 +117,14 @@ cast send <NFT_ADDRESS> "mint(address)" <RECIPIENT_ADDRESS> \
   --private-key $OWNER_PRIVATE_KEY
 ```
 
+### Get All Token IDs by User Address
+
+```bash
+# Get all token IDs owned by a user
+cast call <NFT_ADDRESS> "tokensOfOwner(address)" <USER_ADDRESS> \
+  --rpc-url https://sepolia.era.zksync.dev
+```
+
 ### Commit New Epoch
 
 ```bash
@@ -214,11 +223,11 @@ Token URI format: `ipfs://<CID_epoch>/<tokenId>.json`
 
 ## Deployed Contracts
 
-### Xsolla ZK Testnet
+### zkSync Sepolia
 
-- LoreNFT: `https://sepolia.explorer.zksync.io/address/0x6acCC73dbefD30A27Ee493711f4eFcBa05814859`
-- LoreEpochRegistry: `https://sepolia.explorer.zksync.io/address/0xf5C59cdC51787266cE4e8B01976689BEbC02e1a0`
-- Explorer: https://x.la/explorer/
+- LoreNFT: `0xa0c7D5611EfA882204b8B6A92F369AFA949A65a0`
+- LoreEpochRegistry: `0xAd6421d11F0E3f01E6841F26b9398FE794d0d3F6`
+- Explorer: https://sepolia.explorer.zksync.io/
 
 ## Security Considerations
 

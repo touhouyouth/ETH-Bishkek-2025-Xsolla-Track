@@ -2,6 +2,7 @@
 pragma solidity 0.8.18;
 
 import {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import {ERC721Enumerable} from '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import {AccessControl} from '@openzeppelin/contracts/access/AccessControl.sol';
 import {EIP712} from '@openzeppelin/contracts/utils/cryptography/EIP712.sol';
 import {ECDSA} from '@openzeppelin/contracts/utils/cryptography/ECDSA.sol';
@@ -19,7 +20,7 @@ import {Strings} from '@openzeppelin/contracts/utils/Strings.sol';
  *      On-chain contract stores only the shared baseUriEpoch and (optionally) an epochs registry.
  *      Transfers are only allowed via backend signature (EIP-712).
  */
-contract LoreNFT is ERC721, AccessControl, EIP712, IERC4906 {
+contract LoreNFT is ERC721Enumerable, AccessControl, EIP712, IERC4906 {
     using Strings for uint256;
 
     bytes32 public constant MINTER_ROLE = keccak256('MINTER_ROLE');
@@ -240,6 +241,20 @@ contract LoreNFT is ERC721, AccessControl, EIP712, IERC4906 {
     }
 
     /**
+     * @notice Get all token IDs owned by a user.
+     * @param owner The owner address.
+     * @return An array of token IDs owned by the user.
+     */
+    function tokensOfOwner(address owner) external view returns (uint256[] memory) {
+        uint256 balance = balanceOf(owner);
+        uint256[] memory tokens = new uint256[](balance);
+        for (uint256 i = 0; i < balance; i++) {
+            tokens[i] = tokenOfOwnerByIndex(owner, i);
+        }
+        return tokens;
+    }
+
+    /**
      * @notice Get the token URI for a specific token.
      * @param tokenId The token ID.
      * @return The token URI (format: ipfs://<CID_epoch>/<tokenId>.json).
@@ -280,7 +295,7 @@ contract LoreNFT is ERC721, AccessControl, EIP712, IERC4906 {
         address to,
         uint256 tokenId,
         uint256 batchSize
-    ) internal virtual override(ERC721) {
+    ) internal virtual override(ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
         
         // Allow minting (from == address(0)) and burning (to == address(0))
@@ -304,7 +319,7 @@ contract LoreNFT is ERC721, AccessControl, EIP712, IERC4906 {
     )
         public
         view
-        override(ERC721, AccessControl, IERC165)
+        override(ERC721Enumerable, AccessControl, IERC165)
         returns (bool)
     {
         return
