@@ -2,6 +2,7 @@
 cache/
 out/
 zkout/
+node_modules/
 
 # Ignores development broadcast logs
 !/broadcast

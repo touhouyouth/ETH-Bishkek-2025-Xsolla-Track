@@ -42,8 +42,6 @@ contract LoreNFT is ERC721Enumerable, AccessControl, EIP712, IERC4906 {
     bytes32 public constant TRANSFER_TYPEHASH = 
         keccak256("Transfer(address from,address to,uint256 tokenId,uint256 nonce,uint256 deadline)");
 
-    uint256 private _nextId = 1;
-
     // Flag to enable/disable free transfers (without signature)
     bool public transfersEnabled;
 
@@ -89,31 +87,35 @@ contract LoreNFT is ERC721Enumerable, AccessControl, EIP712, IERC4906 {
     }
 
     /**
-     * @notice Mint with auto-incremented token id.
+     * @notice Mint with custom token id.
      * @param to Address to mint the token to.
-     * @return tokenId The token ID.
+     * @param tokenId Token ID to mint.
      */
     function mint(
-        address to
-    ) external onlyRole(MINTER_ROLE) returns (uint256 tokenId) {
-        tokenId = _nextId++;
+        address to,
+        uint256 tokenId
+    ) external onlyRole(MINTER_ROLE) {
+        require(tokenId != 0, 'tokenId: cannot be 0');
+        require(!_exists(tokenId), 'tokenId: already exists');
         _safeMint(to, tokenId);
         emit MetadataUpdate(tokenId); // allow indexers/markets to refresh initial card
     }
 
     /**
-     * @notice Batch mint tokens to multiple addresses.
+     * @notice Batch mint tokens to multiple addresses with custom token IDs.
      * @param to Addresses to mint the tokens to.
-     * @return tokenIds The token IDs.
+     * @param tokenIds Token IDs to mint.
      */
     function batchMint(
-        address[] calldata to
-    ) external onlyRole(MINTER_ROLE) returns (uint256[] memory) {
+        address[] calldata to,
+        uint256[] calldata tokenIds
+    ) external onlyRole(MINTER_ROLE) {
         require(to.length != 0, 'to: empty');
+        require(tokenIds.length == to.length, 'tokenIds and to length mismatch');
 
-        uint256[] memory tokenIds = new uint256[](to.length);
         for (uint256 i = 0; i < to.length; ) {
-            tokenIds[i] = _nextId++;
+            require(tokenIds[i] != 0, 'tokenId: cannot be 0');
+            require(!_exists(tokenIds[i]), 'tokenId: already exists');
             _safeMint(to[i], tokenIds[i]);
 
             unchecked {
@@ -122,7 +124,6 @@ contract LoreNFT is ERC721Enumerable, AccessControl, EIP712, IERC4906 {
         }
 
         emit BatchMetadataUpdate(tokenIds[0], tokenIds[tokenIds.length - 1]);
-        return tokenIds;
     }
 
     /**
@@ -278,13 +279,6 @@ contract LoreNFT is ERC721Enumerable, AccessControl, EIP712, IERC4906 {
         (, , , string memory epochBase) = loreRegistry.epochs(epochId);
         require(bytes(epochBase).length != 0, "epoch not found");
         return string.concat(epochBase, tokenId.toString(), '.json');
-    }
-
-    /**
-     * @return The maximum minted token ID.
-     */
-    function maxMintedId() external view returns (uint256) {
-        return _nextId - 1;
     }
 
     /**

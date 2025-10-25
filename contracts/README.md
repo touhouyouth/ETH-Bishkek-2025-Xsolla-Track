@@ -225,8 +225,8 @@ Token URI format: `ipfs://<CID_epoch>/<tokenId>.json`
 
 ### Xsolla ZK Sepolia (Chain ID: 555776)
 
-- LoreNFT: `0x32d9e13f0014151cDb4AD4A50c33247BF8680271`
-- LoreEpochRegistry: `0x5B46B9Cb1248d0f2d1011e9AA29297795B8F42F0`
+- LoreNFT: `0x2117502fb0171de18DD27dC0bD331cf2C39F9F1C`
+- LoreEpochRegistry: `0xC2259646b5e2b4b6da3e970965B83513f9Ca61B0`
 - RPC URL: https://zkrpc-sepolia.xsollazk.com
 - Admin/Deployer: `0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f`
 
