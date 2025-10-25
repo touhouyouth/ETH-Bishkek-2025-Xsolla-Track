@@ -59,7 +59,7 @@ export async function fetchExternalJob() {
             assetIds,
           };
         } catch (error) {
-          log.error(`Failed to fetch inventory for ${user.name}:`, error);
+          log.error(`Failed to fetch inventory for ${user.name}:`);
           return {
             steamId: user.steamId,
             userName: user.name,

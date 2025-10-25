@@ -3,8 +3,8 @@ import "dotenv/config";
 export const config = {
   port: Number(process.env.PORT ?? 3000),
   cron: {
-    fetch: process.env.CRON_FETCH ?? "*/10 * * * * *",
-    ipfs: process.env.CRON_IPFS ?? "0 */1 * * *",
+    fetch: "*/10 * * * * *",
+    ipfs: "0 */1 * * *",
   },
   externalApi: {
     baseURL: process.env.EXTERNAL_API_BASE!,
