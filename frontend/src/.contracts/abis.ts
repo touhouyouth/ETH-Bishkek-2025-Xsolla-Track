@@ -6,6 +6,241 @@ import {
 } from "@wagmi/core/codegen";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LoreEpochs
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ *
+ */
+export const loreEpochsAbi = [
+  {
+    type: "constructor",
+    inputs: [
+      { name: "admin", internalType: "address", type: "address" },
+      { name: "nft_", internalType: "contract LoreNFT", type: "address" },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "DEFAULT_ADMIN_ROLE",
+    outputs: [{ name: "", internalType: "bytes32", type: "bytes32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "GAME_ROLE",
+    outputs: [{ name: "", internalType: "bytes32", type: "bytes32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "NFT_MANAGER",
+    outputs: [{ name: "", internalType: "bytes32", type: "bytes32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "root", internalType: "bytes32", type: "bytes32" },
+      { name: "newBaseUriEpoch", internalType: "string", type: "string" },
+      { name: "fromTs", internalType: "uint64", type: "uint64" },
+      { name: "toTs", internalType: "uint64", type: "uint64" },
+      { name: "batchFromTokenId", internalType: "uint256", type: "uint256" },
+      { name: "batchToTokenId", internalType: "uint256", type: "uint256" },
+    ],
+    name: "commitEpoch",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "currentEpoch",
+    outputs: [{ name: "", internalType: "uint64", type: "uint64" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "epochId", internalType: "uint64", type: "uint64" }],
+    name: "epochs",
+    outputs: [
+      { name: "root", internalType: "bytes32", type: "bytes32" },
+      { name: "fromTs", internalType: "uint64", type: "uint64" },
+      { name: "toTs", internalType: "uint64", type: "uint64" },
+      { name: "baseUri", internalType: "string", type: "string" },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "role", internalType: "bytes32", type: "bytes32" }],
+    name: "getRoleAdmin",
+    outputs: [{ name: "", internalType: "bytes32", type: "bytes32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32" },
+      { name: "account", internalType: "address", type: "address" },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32" },
+      { name: "account", internalType: "address", type: "address" },
+    ],
+    name: "hasRole",
+    outputs: [{ name: "", internalType: "bool", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "nft",
+    outputs: [{ name: "", internalType: "contract LoreNFT", type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32" },
+      { name: "account", internalType: "address", type: "address" },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32" },
+      { name: "account", internalType: "address", type: "address" },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "interfaceId", internalType: "bytes4", type: "bytes4" }],
+    name: "supportsInterface",
+    outputs: [{ name: "", internalType: "bool", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      {
+        name: "epochId",
+        internalType: "uint64",
+        type: "uint64",
+        indexed: true,
+      },
+      { name: "root", internalType: "bytes32", type: "bytes32", indexed: true },
+      {
+        name: "fromTs",
+        internalType: "uint64",
+        type: "uint64",
+        indexed: false,
+      },
+      { name: "toTs", internalType: "uint64", type: "uint64", indexed: false },
+      {
+        name: "baseUriEpoch",
+        internalType: "string",
+        type: "string",
+        indexed: false,
+      },
+    ],
+    name: "EpochCommitted",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32", indexed: true },
+      {
+        name: "previousAdminRole",
+        internalType: "bytes32",
+        type: "bytes32",
+        indexed: true,
+      },
+      {
+        name: "newAdminRole",
+        internalType: "bytes32",
+        type: "bytes32",
+        indexed: true,
+      },
+    ],
+    name: "RoleAdminChanged",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32", indexed: true },
+      {
+        name: "account",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      {
+        name: "sender",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+    ],
+    name: "RoleGranted",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      { name: "role", internalType: "bytes32", type: "bytes32", indexed: true },
+      {
+        name: "account",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      {
+        name: "sender",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+    ],
+    name: "RoleRevoked",
+  },
+] as const;
+
+/**
+ *
+ */
+export const loreEpochsAddress = {
+  555776: "0xC2259646b5e2b4b6da3e970965B83513f9Ca61B0",
+} as const;
+
+/**
+ *
+ */
+export const loreEpochsConfig = {
+  address: loreEpochsAddress,
+  abi: loreEpochsAbi,
+} as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LoreNFT
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -616,6 +851,284 @@ export const loreNftConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Action
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__
+ *
+ *
+ */
+export const readLoreEpochs = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
+ *
+ *
+ */
+export const readLoreEpochsDefaultAdminRole = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "DEFAULT_ADMIN_ROLE",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"GAME_ROLE"`
+ *
+ *
+ */
+export const readLoreEpochsGameRole = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "GAME_ROLE",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"NFT_MANAGER"`
+ *
+ *
+ */
+export const readLoreEpochsNftManager = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "NFT_MANAGER",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"currentEpoch"`
+ *
+ *
+ */
+export const readLoreEpochsCurrentEpoch = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "currentEpoch",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"epochs"`
+ *
+ *
+ */
+export const readLoreEpochsEpochs = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "epochs",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"getRoleAdmin"`
+ *
+ *
+ */
+export const readLoreEpochsGetRoleAdmin = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "getRoleAdmin",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"hasRole"`
+ *
+ *
+ */
+export const readLoreEpochsHasRole = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "hasRole",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"nft"`
+ *
+ *
+ */
+export const readLoreEpochsNft = /*#__PURE__*/ createReadContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "nft",
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"supportsInterface"`
+ *
+ *
+ */
+export const readLoreEpochsSupportsInterface = /*#__PURE__*/ createReadContract(
+  {
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    functionName: "supportsInterface",
+  },
+);
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link loreEpochsAbi}__
+ *
+ *
+ */
+export const writeLoreEpochs = /*#__PURE__*/ createWriteContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+});
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"commitEpoch"`
+ *
+ *
+ */
+export const writeLoreEpochsCommitEpoch = /*#__PURE__*/ createWriteContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "commitEpoch",
+});
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"grantRole"`
+ *
+ *
+ */
+export const writeLoreEpochsGrantRole = /*#__PURE__*/ createWriteContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "grantRole",
+});
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"renounceRole"`
+ *
+ *
+ */
+export const writeLoreEpochsRenounceRole = /*#__PURE__*/ createWriteContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "renounceRole",
+});
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"revokeRole"`
+ *
+ *
+ */
+export const writeLoreEpochsRevokeRole = /*#__PURE__*/ createWriteContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+  functionName: "revokeRole",
+});
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link loreEpochsAbi}__
+ *
+ *
+ */
+export const simulateLoreEpochs = /*#__PURE__*/ createSimulateContract({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+});
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"commitEpoch"`
+ *
+ *
+ */
+export const simulateLoreEpochsCommitEpoch =
+  /*#__PURE__*/ createSimulateContract({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    functionName: "commitEpoch",
+  });
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"grantRole"`
+ *
+ *
+ */
+export const simulateLoreEpochsGrantRole = /*#__PURE__*/ createSimulateContract(
+  { abi: loreEpochsAbi, address: loreEpochsAddress, functionName: "grantRole" },
+);
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"renounceRole"`
+ *
+ *
+ */
+export const simulateLoreEpochsRenounceRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    functionName: "renounceRole",
+  });
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link loreEpochsAbi}__ and `functionName` set to `"revokeRole"`
+ *
+ *
+ */
+export const simulateLoreEpochsRevokeRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    functionName: "revokeRole",
+  });
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link loreEpochsAbi}__
+ *
+ *
+ */
+export const watchLoreEpochsEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: loreEpochsAbi,
+  address: loreEpochsAddress,
+});
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link loreEpochsAbi}__ and `eventName` set to `"EpochCommitted"`
+ *
+ *
+ */
+export const watchLoreEpochsEpochCommittedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    eventName: "EpochCommitted",
+  });
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link loreEpochsAbi}__ and `eventName` set to `"RoleAdminChanged"`
+ *
+ *
+ */
+export const watchLoreEpochsRoleAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    eventName: "RoleAdminChanged",
+  });
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link loreEpochsAbi}__ and `eventName` set to `"RoleGranted"`
+ *
+ *
+ */
+export const watchLoreEpochsRoleGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    eventName: "RoleGranted",
+  });
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link loreEpochsAbi}__ and `eventName` set to `"RoleRevoked"`
+ *
+ *
+ */
+export const watchLoreEpochsRoleRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: loreEpochsAbi,
+    address: loreEpochsAddress,
+    eventName: "RoleRevoked",
+  });
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link loreNftAbi}__
