@@ -78,7 +78,7 @@ export BACKEND_SIGNER=0xYOUR_BACKEND_SIGNER_ADDRESS
 
 # Deploy to Xsolla ZK
 forge script script/DeployLore.s.sol:DeployLore \
-  --rpc-url https://zkrpc.xsollazk.com \
+  --rpc-url https://zkrpc-sepolia.xsollazk.com \
   --broadcast \
   --zksync
 ```
@@ -113,7 +113,7 @@ After deployment, you'll have:
 ```bash
 # Using cast
 cast send <NFT_ADDRESS> "mint(address)" <RECIPIENT_ADDRESS> \
-  --rpc-url https://zkrpc.xsollazk.com \
+  --rpc-url https://zkrpc-sepolia.xsollazk.com \
   --private-key $OWNER_PRIVATE_KEY
 ```
 
@@ -122,7 +122,7 @@ cast send <NFT_ADDRESS> "mint(address)" <RECIPIENT_ADDRESS> \
 ```bash
 # Get all token IDs owned by a user
 cast call <NFT_ADDRESS> "tokensOfOwner(address)" <USER_ADDRESS> \
-  --rpc-url https://sepolia.era.zksync.dev
+  --rpc-url https://zkrpc-sepolia.xsollazk.com
 ```
 
 ### Commit New Epoch
@@ -223,11 +223,12 @@ Token URI format: `ipfs://<CID_epoch>/<tokenId>.json`
 
 ## Deployed Contracts
 
-### zkSync Sepolia
+### Xsolla ZK Sepolia (Chain ID: 555776)
 
-- LoreNFT: `0xa0c7D5611EfA882204b8B6A92F369AFA949A65a0`
-- LoreEpochRegistry: `0xAd6421d11F0E3f01E6841F26b9398FE794d0d3F6`
-- Explorer: https://sepolia.explorer.zksync.io/
+- LoreNFT: `0x32d9e13f0014151cDb4AD4A50c33247BF8680271`
+- LoreEpochRegistry: `0x5B46B9Cb1248d0f2d1011e9AA29297795B8F42F0`
+- RPC URL: https://zkrpc-sepolia.xsollazk.com
+- Admin/Deployer: `0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f`
 
 ## Contract ABIs
 

@@ -1,4 +1,13 @@
 {
+  "xsollaZkSepolia": {
+    "chainId": 555776,
+    "rpcUrl": "https://zkrpc-sepolia.xsollazk.com",
+    "deployer": "0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f",
+    "contracts": {
+      "LoreNFT": "0x32d9e13f0014151cDb4AD4A50c33247BF8680271",
+      "LoreEpochRegistry": "0x5B46B9Cb1248d0f2d1011e9AA29297795B8F42F0"
+    }
+  },
   "zkSyncSepolia": {
     "chainId": 300,
     "rpcUrl": "https://sepolia.era.zksync.dev",
