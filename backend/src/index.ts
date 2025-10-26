@@ -6,13 +6,27 @@ import {
   createNewEpochForTrade,
   initializeEpochService,
 } from "./services/ipfs.js";
+import { syncRecentEpochs } from "./services/epochSync.js";
 
 const app = createServer();
 
-const server = app.listen(config.port, () => {
+const server = app.listen(config.port, async () => {
   log.info(`HTTP listening on :${config.port}`);
+  
+  // Start cron scheduler
   startScheduler();
-  createNewEpochForTrade("2704470580");
+  
+  // Initialize epoch sync on startup
+  log.info("🚀 Initializing epoch sync...");
+  try {
+    await syncRecentEpochs(5); // Sync last 5 epochs on startup
+    log.info("✅ Initial epoch sync completed");
+  } catch (error: any) {
+    log.error(`Failed to sync epochs on startup: ${error.message}`);
+  }
+  
+  // Keep existing functionality
+  // createNewEpochForTrade("2704470580");
   // initializeEpochService();
 });
 

@@ -49,8 +49,8 @@ export async function generateClaimSignature(item: Item) {
     BigInt(Date.now()) * 1000000n + BigInt(Math.floor(Math.random() * 1000000));
 
   const transferData = {
-    to: oldOwner?.walletAddress as `0x${string}`,
-    from: owner?.walletAddress as `0x${string}`,
+    to: owner?.walletAddress as `0x${string}`,
+    from: oldOwner?.walletAddress as `0x${string}`,
     tokenId: item.classId,
     nonce,
     deadline: BigInt(deadline),

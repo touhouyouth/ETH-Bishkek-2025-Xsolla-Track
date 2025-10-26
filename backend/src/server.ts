@@ -3,6 +3,7 @@ import cors from "cors";
 import { storage } from "./services/storage.js";
 import { generateClaimSignature } from "./services/signature.js";
 import { log } from "./logger.js";
+import { getWalletHistory } from "./services/walletHistory.js";
 
 export function createServer() {
   const app = express();
@@ -55,7 +56,7 @@ export function createServer() {
     }
 
     const state = storage.get();
-    const item = state.items.find((i) => i.id === itemId);
+    const item = state.items.find((i) => i.classId === itemId);
 
     if (!item) {
       return res.status(404).json({ error: "Item not found" });
@@ -77,6 +78,28 @@ export function createServer() {
       return res.json({ signature });
     } catch (error) {
       return res.status(500).json({ error: "Failed to generate signature" });
+    }
+  });
+
+  // === EPOCH HISTORY ENDPOINT ===
+
+  /**
+   * GET /api/history/wallet/:walletAddress
+   * Returns the full history of all tokens across epochs
+   */
+  app.get("/api/history/wallet/:walletAddress", async (req, res) => {
+    try {
+      const { walletAddress } = req.params;
+      
+      if (!walletAddress || walletAddress.length < 10) {
+        return res.status(400).json({ error: "Invalid wallet address" });
+      }
+
+      const history = await getWalletHistory(walletAddress);
+      res.json(history);
+    } catch (error: any) {
+      log.error(`Error fetching wallet history: ${error.message}`);
+      res.status(500).json({ error: "Failed to fetch wallet history" });
     }
   });
 

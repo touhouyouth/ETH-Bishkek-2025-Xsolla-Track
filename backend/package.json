@@ -28,8 +28,4 @@
     "typescript": "^5.9.3"
   },
   "type": "module"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> zheka-backend-cors

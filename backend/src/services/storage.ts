@@ -4,12 +4,12 @@ const initialUsers: User[] = [
   {
     name: "adilet",
     steamId: "76561198260012732",
-    walletAddress: "",
+    walletAddress: "0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f",
   },
   {
     name: "friend",
     steamId: "76561199185854372",
-    walletAddress: "",
+    walletAddress: "0x9F7dd0BfA1fA430BDf276BD996f809F4b8E1cC9C",
   },
 ];
 
