@@ -12,10 +12,10 @@ const app = createServer();
 
 const server = app.listen(config.port, async () => {
   log.info(`HTTP listening on :${config.port}`);
-  
+
   // Start cron scheduler
   startScheduler();
-  
+
   // Initialize epoch sync on startup
   log.info("🚀 Initializing epoch sync...");
   try {
@@ -24,10 +24,10 @@ const server = app.listen(config.port, async () => {
   } catch (error: any) {
     log.error(`Failed to sync epochs on startup: ${error.message}`);
   }
-  
+
   // Keep existing functionality
   // createNewEpochForTrade("2704470580");
-  // initializeEpochService();
+  initializeEpochService();
 });
 
 // graceful shutdown
