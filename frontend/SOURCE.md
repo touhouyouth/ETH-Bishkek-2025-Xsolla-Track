@@ -1,0 +1,1 @@
+Made during ETHBishkek 2025 hackathon”. Projects without this file won’t be allowed to win any bounty.
