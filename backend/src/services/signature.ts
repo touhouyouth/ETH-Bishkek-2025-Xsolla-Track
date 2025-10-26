@@ -5,13 +5,7 @@ import { privateKeyToAccount } from "viem/accounts";
 import { storage } from "./storage.js";
 import { config, xsollaZKSync } from "../config.js";
 
-const SIGNER_PRIVATE_KEY = process.env.SIGNER_PRIVATE_KEY ?? "";
-
-if (!SIGNER_PRIVATE_KEY) {
-  throw new Error("SIGNER_PRIVATE_KEY is not set");
-}
-
-const account = privateKeyToAccount(SIGNER_PRIVATE_KEY as `0x${string}`);
+const account = privateKeyToAccount(config.signerPrivateKey);
 
 const walletClient = createWalletClient({
   account,

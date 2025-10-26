@@ -37,3 +37,8 @@ temp/
 
 # OS files
 Thumbs.db
+
+# Node.js lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

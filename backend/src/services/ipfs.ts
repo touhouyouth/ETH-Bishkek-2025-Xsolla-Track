@@ -4,24 +4,13 @@ import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
 import path from "path";
-import { xsollaZKSync } from "../config.js";
+import { xsollaZKSync, config } from "../config.js";
 import { log } from "../logger.js";
 import { storage } from "./storage.js";
 
-const PINATA_JWT = process.env.PINATA_JWT ?? "";
-const EPOCH_REGISTRY_ADDRESS = process.env
-  .EPOCH_REGISTRY_ADDRESS as `0x${string}`;
-const GAME_ROLE_PRIVATE_KEY = process.env.SIGNER_PRIVATE_KEY as `0x${string}`;
-
-if (!PINATA_JWT) {
-  throw new Error("PINATA_JWT not set");
-}
-if (!EPOCH_REGISTRY_ADDRESS) {
-  throw new Error("EPOCH_REGISTRY_ADDRESS not set");
-}
-if (!GAME_ROLE_PRIVATE_KEY) {
-  throw new Error("GAME_ROLE_PRIVATE_KEY not set");
-}
+const PINATA_JWT = config.pinataJwt;
+const EPOCH_REGISTRY_ADDRESS = config.epochRegistryAddress;
+const GAME_ROLE_PRIVATE_KEY = config.signerPrivateKey;
 
 const EPOCH_REGISTRY_ABI = [
   {
