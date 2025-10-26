@@ -62,7 +62,7 @@ export default function TradeHistory({ classid }: TradeHistoryProps) {
       backdropFilter="blur(10px)"
     >
       <Typography preset="heading.400.default" color="white">
-        История трейдов
+        Trade history
       </Typography>
 
       {mockTradeHistory.length === 0 ? (
@@ -220,7 +220,7 @@ function SteamUserInfo({ steamId }: SteamUserInfoProps) {
             Неизвестный пользователь
           </Typography>
           <Typography preset="compact.150.default" color="#666">
-            ID: {steamId.slice(-8)}
+            ID: {steamId}
           </Typography>
         </Stack>
       </Stack>
