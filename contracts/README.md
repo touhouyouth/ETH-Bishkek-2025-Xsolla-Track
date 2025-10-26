@@ -46,8 +46,65 @@ forge build
 
 ## Test
 
+The project includes comprehensive test coverage for both contracts with 67 tests total.
+
+### Running Tests
+
 ```bash
+# Run all tests
 forge test
+
+# Run with detailed output
+forge test -vv
+
+# Run specific test file
+forge test --match-path test/LoreNFT.t.sol -vv
+forge test --match-path test/LoreEpochRegistry.t.sol -vv
+
+# Run specific test by name
+forge test --match-test testMint -vv
+
+# Run with gas reporting
+forge test --gas-report
+```
+
+### Test Coverage
+
+```bash
+# Generate coverage report
+forge coverage
+
+# Generate detailed LCOV report
+forge coverage --report lcov
+```
+
+### Test Suites
+
+**LoreNFT Tests (47 tests)**:
+- Constructor validation (6 tests)
+- Minting (single & batch) (8 tests)
+- Backend signer management (3 tests)
+- Transfer controls (4 tests)
+- Signature-based transfers (7 tests)
+- Base URI management (4 tests)
+- Token URI queries (3 tests)
+- Registry management (4 tests)
+- Batch metadata updates (2 tests)
+- Token enumeration (2 tests)
+- Interface support (1 test)
+
+**LoreEpochRegistry Tests (20 tests)**:
+- Constructor validation (3 tests)
+- Epoch commits (8 tests)
+- Epoch queries (4 tests)
+- Integration tests (2 tests)
+- Role management (2 tests)
+
+### Test Results
+
+All tests passing:
+```
+Ran 2 test suites: 67 tests passed, 0 failed, 0 skipped
 ```
 
 ## Deploy
