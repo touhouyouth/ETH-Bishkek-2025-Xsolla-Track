@@ -54,3 +54,16 @@ export interface SteamPlayerSummariesResponse {
     players: SteamPlayer[];
   };
 }
+
+// Типы для истории трейдов
+export interface TradeHistoryItem {
+  id: string;
+  fromSteamId: string;
+  toSteamId: string;
+  timestamp: number;
+  transactionHash?: string;
+}
+
+export interface TradeHistoryResponse {
+  trades: TradeHistoryItem[];
+}

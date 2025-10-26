@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { Stack, Typography, Button } from "@xsolla-zk/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import TradeHistory from "@/components/TradeHistory";
 
 export default function NftDetailPage() {
   const params = useParams();
@@ -226,6 +227,16 @@ export default function NftDetailPage() {
             </Stack>
           </Stack>
         </Stack>
+      </Stack>
+
+      {/* Trade History Section */}
+      <Stack
+        maxWidth={1200}
+        marginHorizontal="auto"
+        width="100%"
+        marginTop={40}
+      >
+        <TradeHistory classid={classid} />
       </Stack>
     </Stack>
   );
