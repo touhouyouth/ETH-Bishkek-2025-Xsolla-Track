@@ -11,13 +11,20 @@ const tokenId = args[3] || '3450589820';
 const nonce = args[4] || '1761426919897653704';
 const deadline = args[5] || '1761430519';
 const signature = args[6] || '0x981c056cd492e8d50b82fb1383c7026ceb07d8c1a3727084dbbc9d78008f98bd0c348d339cb87fa3d10047d22a903ab4afdeb42fb06f4f46e643df6d4ba53cd01b';
-const privateKey = args[7] || '0xae083edef4884f43680030233faadd9ae2d912ee4f6d377ab303b54bcac0c760';
+const privateKey = args[7]; // REQUIRED: Private key must be provided as argument
 const rpcUrl = args[8] || 'https://zkrpc-sepolia.xsollazk.com';
 
 async function main() {
   console.log('🚀 TransferWithSignature Script for LoreNFT\n');
 
   // Validate arguments
+  if (!privateKey) {
+    console.error('❌ Private key is required!');
+    console.error('\nUsage:');
+    console.error('  npx tsx scripts/transferWithSignature.ts <contractAddress> <from> <to> <tokenId> <nonce> <deadline> <signature> <privateKey> [rpcUrl]');
+    process.exit(1);
+  }
+  
   if (!privateKey.startsWith('0x')) {
     console.error('❌ Private key must start with 0x');
     process.exit(1);

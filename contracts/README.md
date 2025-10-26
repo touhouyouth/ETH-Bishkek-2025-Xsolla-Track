@@ -57,7 +57,7 @@ forge test
 Set the following environment variables before deployment:
 
 ```bash
-# Required
+# Required for deployment
 export OWNER_PRIVATE_KEY=0x...        # Your private key (will be admin for both contracts)
 export BACKEND_SIGNER=0x...           # Address authorized to sign transfer approvals
 
@@ -65,6 +65,12 @@ export BACKEND_SIGNER=0x...           # Address authorized to sign transfer appr
 export NFT_NAME="Lore Game Assets"    # NFT collection name
 export NFT_SYMBOL="LORE"              # NFT collection symbol
 export INITIAL_BASE_URI="ipfs://"     # Initial IPFS base URI for metadata
+
+# Required for IPFS upload scripts (scripts/uploadAndMint.ts)
+export PINATA_JWT=your_pinata_jwt     # Pinata JWT token (recommended)
+# OR use API keys:
+export PINATA_API_KEY=your_api_key
+export PINATA_SECRET_API_KEY=your_secret_key
 ```
 
 ### Deploy to Xsolla ZK
@@ -229,46 +235,3 @@ Token URI format: `ipfs://<CID_epoch>/<tokenId>.json`
 - LoreEpochRegistry: `0xC2259646b5e2b4b6da3e970965B83513f9Ca61B0`
 - RPC URL: https://zkrpc-sepolia.xsollazk.com
 - Admin/Deployer: `0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f`
-
-## Contract ABIs
-
-ABI файлы контрактов находятся в директории `abis/`:
-
-- **abis/LoreNFT.json** - ABI контракта LoreNFT (ERC721Enumerable)
-- **abis/LoreEpochRegistry.json** - ABI контракта LoreEpochRegistry
-- **abis/addresses.json** - Адреса развернутых контрактов
-
-Используйте эти ABI для интеграции с контрактами через web3.js, ethers.js или другие библиотеки.
-
-## Security Considerations
-
-1. **Private Keys**: Never commit private keys to version control
-2. **Backend Signer**: Keep the backend signer private key secure - it controls all transfers
-3. **Admin Keys**: The admin has full control over both contracts
-4. **Transfer Restrictions**: By default, only signature-based transfers are allowed
-5. **Epoch Integrity**: Verify Merkle roots off-chain before committing epochs
-
-## Development
-
-### Update Backend Signer
-
-```bash
-cast send <NFT_ADDRESS> "setBackendSigner(address)" <NEW_SIGNER> \
-  --rpc-url https://zkrpc.xsollazk.com \
-  --private-key $OWNER_PRIVATE_KEY
-```
-
-### Grant Roles
-
-```bash
-# Grant MINTER_ROLE to another address
-cast send <NFT_ADDRESS> "grantRole(bytes32,address)" \
-  $(cast keccak "MINTER_ROLE") \
-  <NEW_MINTER_ADDRESS> \
-  --rpc-url https://zkrpc.xsollazk.com \
-  --private-key $OWNER_PRIVATE_KEY
-```
-
-## License
-
-MIT

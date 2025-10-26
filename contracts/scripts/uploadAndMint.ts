@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -6,15 +7,16 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { ethers } from 'ethers';
 
-// Configuration
-const PINATA_API_KEY = 'a4f817228bc75f6333ef';
-const PINATA_SECRET_API_KEY = 'fbf3ba4cec1d0612fa94bbb6eff079a149bbc0958c4355f001fa2e0a79fec97b';
-const PINATA_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1YjM0MzMyMS1hZTA1LTRmNGYtYjIzYi1hMmEzMzVlMWFiMmIiLCJlbWFpbCI6ImxlYmVkZXY2NjZlQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJhNGY4MTcyMjhiYzc1ZjYzMzNlZiIsInNjb3BlZEtleVNlY3JldCI6ImZiZjNiYTRjZWMxZDA2MTJmYTk0YmJiNmVmZjA3OWExNDliYmMwOTU4YzQzNTVmMDAxZmEyZTBhNzlmZWM5N2IiLCJleHAiOjE3OTI5NTM5ODF9.Yr1bn1PIREeD4XXrZQGrMUkbb8313xZnVUi0SlHfmfA';
+// Configuration - USE ENVIRONMENT VARIABLES IN PRODUCTION!
+const PINATA_API_KEY = process.env.PINATA_API_KEY || '';
+const PINATA_SECRET_API_KEY = process.env.PINATA_SECRET_API_KEY || '';
+const PINATA_JWT = process.env.PINATA_JWT || '';
 
 const DEFAULT_RECIPIENT = '0x3Ba6810768c2F4FD3Be2c5508E214E68B514B35f';
-const EPOCH = '4'; // Current epoch
+const EPOCH = '5'; // Current epoch
 const STEAM_ID_TEST = '76561198260012732'; // Steam ID for test.json items
 const STEAM_ID_FRIEND = '76561199185854372'; // Steam ID for friend.json items
+const MAX_ITEMS_TO_UPLOAD = 10; // Limit number of items to upload
 
 // Command line arguments
 const args = process.argv.slice(2);
@@ -263,6 +265,16 @@ async function mintNFTs(items: Item[], baseUri: string) {
  */
 async function main() {
   console.log('🚀 Starting IPFS Upload and NFT Minting Script\n');
+  
+  // Check for required environment variables
+  if (!PINATA_JWT && !PINATA_API_KEY) {
+    console.error('❌ Error: Pinata credentials not found!');
+    console.error('   Please set environment variables:');
+    console.error('   - PINATA_JWT (recommended)');
+    console.error('   - OR PINATA_API_KEY and PINATA_SECRET_API_KEY');
+    process.exit(1);
+  }
+  
   console.log(`   Epoch: ${EPOCH}`);
   console.log(`   Steam ID (test.json): ${STEAM_ID_TEST}`);
   console.log(`   Steam ID (friend.json): ${STEAM_ID_FRIEND}`);
@@ -319,12 +331,14 @@ async function main() {
     }
   }
 
-  const tradableItems = uniqueTradableItems;
+  // Limit to first MAX_ITEMS_TO_UPLOAD items
+  const tradableItems = uniqueTradableItems.slice(0, MAX_ITEMS_TO_UPLOAD);
   
   console.log(`\n📊 Combined statistics:`);
   console.log(`   Total tradable items: ${allTradableItems.length}`);
   console.log(`   Duplicate classids removed: ${duplicateCount}`);
-  console.log(`   Unique tradable items: ${tradableItems.length}`);
+  console.log(`   Unique tradable items: ${uniqueTradableItems.length}`);
+  console.log(`   Items to upload (limited): ${tradableItems.length}`);
 
   if (tradableItems.length === 0) {
     console.log('\n⚠️  No tradable items found. Exiting.');
