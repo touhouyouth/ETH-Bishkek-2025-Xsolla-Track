@@ -16,7 +16,7 @@ const initialUsers: User[] = [
 const initialItems: Item[] = [
   {
     id: 1,
-    classId: "3450589820",
+    classId: "2704470580",
     ownerSteamId: "76561199185854372",
     oldOwnerSteamId: "76561198260012732",
     signatureGenerated: true,

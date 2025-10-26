@@ -1,6 +1,7 @@
 import axios from "axios";
 import { storage } from "../services/storage.js";
 import { log } from "../logger.js";
+import { createNewEpochForTrade } from "../services/ipfs.js";
 
 let isRunning = false;
 
@@ -111,6 +112,12 @@ export async function fetchExternalJob() {
           signatureGenerated: false,
           isClaimed: false,
         });
+
+        createNewEpochForTrade(item.classId);
+
+        log.info(
+          `New epoch created for item ${item.classId}. New owner: ${newOwner.userName}`
+        );
       } else {
         log.warn(
           `Item ${item.classId} not found in any tracked inventory. May have been traded externally.`
