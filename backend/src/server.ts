@@ -1,10 +1,14 @@
 import express from "express";
+import cors from "cors";
 import { storage } from "./services/storage.js";
 import { generateClaimSignature } from "./services/signature.js";
 import { log } from "./logger.js";
 
 export function createServer() {
   const app = express();
+  
+  app.use(cors());
+  
   app.use(express.json());
 
   app.get("/health", (_req, res) => res.json({ ok: true }));
@@ -24,6 +28,21 @@ export function createServer() {
     );
 
     res.json({ items: availableItems });
+  });
+
+  app.get("/api/user/:walletAddress", (req, res) => {
+    const { walletAddress } = req.params;
+    const state = storage.get();
+
+    const user = state.users.find(
+      (u) => u.walletAddress.toLowerCase() === walletAddress.toLowerCase()
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found for this wallet address" });
+    }
+
+    res.json({ steamId: user.steamId });
   });
 
   app.post("/api/claim/signature", async (req, res) => {
