@@ -24,6 +24,12 @@ const nextConfig = (): NextConfig => {
         },
         {
           protocol: "https",
+          hostname: "avatars.steamstatic.com",
+          port: "",
+          pathname: "/**",
+        },
+        {
+          protocol: "https",
           hostname: "ipfs.io",
           port: "",
           pathname: "/ipfs/**",

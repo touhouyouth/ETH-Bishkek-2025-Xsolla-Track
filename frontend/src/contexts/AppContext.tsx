@@ -11,10 +11,12 @@ import { useAccount } from "wagmi";
 import type { ReactNode } from "react";
 import type { UserState } from "@/types/app";
 import type { AppContextType } from "@/types/app";
+import { getUserByWallet } from "@/hooks/useApi";
 
 const initialState: UserState = {
   isLoading: true,
-  address: null,
+  address: undefined,
+  steamId: null,
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -23,15 +25,39 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<UserState>(initialState);
   const { address, isConnecting, isReconnecting } = useAccount();
 
+  const setSteamId = useCallback((steamId: string | null): void => {
+    setState((prev) => ({
+      ...prev,
+      steamId,
+    }));
+  }, []);
+
   useEffect(() => {
     const isLoading = isConnecting || isReconnecting;
 
     setState((prev) => ({
       ...prev,
-      address: address ?? null,
+      address: address ?? undefined,
       isLoading,
     }));
-  }, [address, isConnecting, isReconnecting]);
+
+    if (address && !isLoading) {
+      getUserByWallet(address) // CHANGE to address
+        .then((response) => {
+          if (response.data) {
+            setSteamId(response.data.steamId);
+          } else {
+            setSteamId(null);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching steamId:", error);
+          setSteamId(null);
+        });
+    } else if (!address) {
+      setSteamId(null);
+    }
+  }, [address, isConnecting, isReconnecting, setSteamId]);
 
   const reset = useCallback((): void => {
     setState(initialState);
@@ -40,6 +66,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const value: AppContextType = {
     ...state,
     reset,
+    setSteamId,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

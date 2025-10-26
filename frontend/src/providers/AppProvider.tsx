@@ -8,7 +8,11 @@ import { wagmiConfig } from "@/config/wagmi.config";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
 import { ConnectKitProvider } from "connectkit";
-import Header from "../components/Header";
+import dynamic from "next/dynamic";
+
+const Header = dynamic(() => import("../components/Header"), {
+  ssr: false,
+});
 
 const queryClient = new QueryClient();
 
