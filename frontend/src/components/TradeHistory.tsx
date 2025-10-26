@@ -254,7 +254,7 @@ function SteamUserInfo({ steamId }: SteamUserInfoProps) {
           {player.personaname}
         </Typography>
         <Typography preset="compact.150.default" color="#666">
-          ID: {steamId.slice(-8)}
+          ID: {steamId}
         </Typography>
       </Stack>
     </Stack>
