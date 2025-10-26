@@ -196,6 +196,7 @@ async function getAllFilesInEpoch(
       timeout: 15000,
       headers: {
         Accept: "text/html",
+        "x-pinata-gateway-token": PINATA_JWT,
       },
     });
 
@@ -220,9 +221,7 @@ async function getAllFilesInEpoch(
     return uniqueClassIds;
   } catch (error: any) {
     log.error(`Failed to get directory listing: ${error.message}`);
-    throw new Error(
-      `Cannot get file list from IPFS directory: ${error.message}`
-    );
+    throw error;
   }
 }
 
