@@ -1,0 +1,25 @@
+{
+  "name": "lore-nft-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for uploading items to IPFS and minting NFTs",
+  "type": "module",
+  "scripts": {
+    "preview": "tsx scripts/previewData.ts",
+    "test-upload": "tsx scripts/testUpload.ts",
+    "upload": "tsx scripts/uploadAndMint.ts",
+    "upload-and-mint": "tsx scripts/uploadAndMint.ts",
+    "commit-epoch": "tsx scripts/commitEpoch.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.3.3"
+  }
+}
