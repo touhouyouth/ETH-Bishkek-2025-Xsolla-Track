@@ -73,9 +73,28 @@ export function useNftMetadata(
           fetchNftMetadata(classId.toString(), ipfsUrl, isNotClaimed)
         );
 
-        const metadataArray = await Promise.all(metadataPromises);
+        // Используем Promise.allSettled вместо Promise.all
+        const results = await Promise.allSettled(metadataPromises);
 
-        console.log("✅ Successfully fetched all metadata:", metadataArray);
+        // Фильтруем только успешные результаты
+        const metadataArray = results
+          .map((result, index) => {
+            if (result.status === "fulfilled") {
+              return result.value;
+            } else {
+              console.warn(
+                `⚠️ Failed to fetch metadata for classId ${classIds[index]}:`,
+                result.reason
+              );
+              return null;
+            }
+          })
+          .filter((metadata): metadata is NftMetadata => metadata !== null);
+
+        console.log(
+          `✅ Successfully fetched ${metadataArray.length}/${classIds.length} metadata items:`,
+          metadataArray
+        );
         return metadataArray;
       } catch (error) {
         console.error("❌ Error fetching NFT metadata:", error);
